@@ -1,0 +1,6 @@
+version: "3"
+services:
+  spaas-rpc:
+    image: raidennetwork/scenario-player-services:latest
+    ports:
+      - "5100:5100"

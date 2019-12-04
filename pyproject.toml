@@ -1,0 +1,109 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+######################
+# FLIT CONFIGURATION #
+######################
+
+[tool.flit.metadata]
+# General Meta data
+dist-name = "scenario-player-services"
+module = "scenario_player_services"
+author = "Brainbot Labs Est."
+author-email = "contact@brainbot.li"
+home-page = "https://github.com/raiden-network/scenario-player-services"
+description-file = "README.rst"
+
+# Pypi Requirements
+requires-python = ">3.6"
+requires = [
+    'flask',
+    'requests',
+    'raiden-spaas-core',
+    'raiden-spaas-rpc',
+    'structlog',
+]
+
+# Classifiers, Licensing, keywords for pypi.
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+keywords = "raiden, raiden-network"
+
+[tool.flit.metadata.requires-extra]
+# Extended dependencies required for development and testing. Flit installs
+# these automatically.
+test = ["pytest==4.5.0"]
+dev = [
+    "black==19.3b0",
+    "flake8-bugbear==18.8.0",
+    "flake8-tuple==0.2.13",
+    "flake8==3.7.5",
+    "isort==4.3.16",
+    "pytest==4.5.0",
+    "pytest-cov",
+    "pytest-dependency==0.4.0",
+    "responses==0.10.6",
+    "coverage",
+    "codecov",
+]
+docs = ["sphinx"]
+
+[tool.flit.metadata.urls]
+# All sorts of URLs to display on the pypi page.
+GitHub = "https://github.com/raiden-network/scenario-player-services"
+"Bug Tracker" = "https://github.com/raiden-network/scenario-player-services/issues"
+"Raiden Homepage" = "https://raiden.network"
+"Raiden Developer Portal" = "https://dev.raiden.network"
+
+[tool.flit.scripts]
+# CLI commands installed along with out package.
+scenario-player-services = "scenario_player_services.docker.scripts:manage_services"
+
+#######################
+# ISORT CONFIGURATION #
+#######################
+
+[tool.isort]
+line_length = 99
+known_future_library = "future"
+known_first_party = "raiden"
+default_section = "THIRDPARTY"
+combine_as_imports = true
+# black compatibility
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+
+
+#######################
+# BLACK CONFIGURATION #
+#######################
+
+[tool.black]
+line-length = 99
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | test
+  | docs
+)/
+'''
