@@ -1,7 +1,8 @@
 from typing import Mapping
 
-from spaas_core.utils import construct_flask_app
-from spaas_rpc.app import spaas_rpc_service
+import flask
+
+from spaas_core.plugins import get_plugin_manager
 
 
 def scenario_player_services(
@@ -11,6 +12,18 @@ def scenario_player_services(
     config_file: str = "config.py",
 ):
     """Create a Scenario Player Services Flask app, runnable by a uwsgi framework."""
-    app = construct_flask_app(db_name=db_name, test_config=test_config, secret=secret, config_file=config_file)
-    app = spaas_rpc_service(app)
+    app = flask.Flask("Scenario-Player-Services", instance_relative_config=True)
+    app.config.from_mapping(SECRET_KEY=secret, DATABASE=db_name)
+
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile(config_file, silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
+
+    plugins = get_plugin_manager()
+    recipes = plugins.hook.service_recipe()
+    for recipe in recipes:
+        app = recipe(app)
     return app
