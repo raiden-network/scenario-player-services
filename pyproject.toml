@@ -58,6 +58,8 @@ dev = [
     "codecov",
 ]
 docs = ["sphinx"]
+docker = ["docker"]
+compose = ["docker-compose"]
 
 [tool.flit.metadata.urls]
 # All sorts of URLs to display on the pypi page.
