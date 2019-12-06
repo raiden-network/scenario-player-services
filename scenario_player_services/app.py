@@ -1,7 +1,6 @@
 from typing import Mapping
 
 import flask
-
 from spaas_core.plugins import get_plugin_manager
 
 
