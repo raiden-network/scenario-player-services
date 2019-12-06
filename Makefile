@@ -27,6 +27,3 @@ install-dev:
 
 tests:
 	pytest --cov=scenario_player_services
-
-docs:
-	cd docs/ && make html
